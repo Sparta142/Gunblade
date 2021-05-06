@@ -16,7 +16,7 @@ if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
 endif()
 
 project(
-    Machinist
+    Gunblade
     VERSION 0.1.0
     DESCRIPTION "A tool for monitoring FINAL FANTASY XIV network traffic."
     LANGUAGES CXX

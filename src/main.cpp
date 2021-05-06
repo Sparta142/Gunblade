@@ -52,7 +52,7 @@ static Tins::Sniffer get_sniffer()
 
     spdlog::info(
         "Sniffing on interface: {} ({}) (HW: {})",
-        machinist::to_utf8(iface.friendly_name()),
+        gunblade::to_utf8(iface.friendly_name()),
         iface.name(),
         iface.hw_address().to_string());
 
@@ -65,7 +65,7 @@ int main()
 
     // Set up a new stream follower to do TCP stream reassembly
     Tins::TCPIP::StreamFollower follower;
-    machinist::ffxiv::setup_follower(follower);
+    gunblade::ffxiv::setup_follower(follower);
 
     // Sniff packets forever
     Tins::Sniffer sniffer = get_sniffer();

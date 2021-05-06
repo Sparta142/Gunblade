@@ -2,7 +2,7 @@
 
 #include <tins/tcp_ip/stream_follower.h>
 
-namespace machinist::ffxiv
+namespace gunblade::ffxiv
 {
     void setup_follower(Tins::TCPIP::StreamFollower& follower);
-}  // namespace machinist::ffxiv
+}  // namespace gunblade::ffxiv

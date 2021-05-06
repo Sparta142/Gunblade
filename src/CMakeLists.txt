@@ -15,7 +15,7 @@ find_path(PCAP_INCLUDE_DIR
     REQUIRED
 )
 
-add_executable(machinist
+add_executable(gunblade
     ffxiv/decoder.cpp
     ffxiv/stream_handler.cpp
     ffxiv/structs.cpp
@@ -31,39 +31,39 @@ add_executable(machinist
 )
 
 # C++20, no compiler extensions, and position-independent code
-target_compile_features(machinist PUBLIC cxx_std_20)
-set_target_properties(machinist PROPERTIES
+target_compile_features(gunblade PUBLIC cxx_std_20)
+set_target_properties(gunblade PROPERTIES
     POSITION_INDEPENDENT_CODE ON
     CXX_STANDARD_REQUIRED ON
     CXX_EXTENSIONS OFF
 )
 
-target_link_libraries(machinist PRIVATE
+target_link_libraries(gunblade PRIVATE
     nlohmann_json::nlohmann_json
     spdlog::spdlog
     tins
     ZLIB::ZLIB
 )
 
-target_include_directories(machinist PRIVATE
+target_include_directories(gunblade PRIVATE
     ${GZIP_HPP_INCLUDE_DIR}
     ${PCAP_INCLUDE_DIR}
 )
 
 # Necessary for Tins to export its API correctly - it's not done by vcpkg
-target_compile_definitions(machinist PRIVATE
+target_compile_definitions(gunblade PRIVATE
     TINS_STATIC=1
 )
 
 if(MSVC)
-    target_link_libraries(machinist PRIVATE
+    target_link_libraries(gunblade PRIVATE
         Ws2_32.lib   #
         Iphlpapi.lib
         psapi.lib
     )
 
     # Fix MSVC/Windows API annoyances
-    target_compile_definitions(machinist PRIVATE
+    target_compile_definitions(gunblade PRIVATE
         WIN32_LEAN_AND_MEAN=1
         VC_EXTRALEAN=1
         NOMINMAX=1
@@ -71,13 +71,13 @@ if(MSVC)
     )
 
     # Enable warnings
-    target_compile_options(machinist PRIVATE /W4)
+    target_compile_options(gunblade PRIVATE /W4)
 
     # Use static Windows CRT
-    set_target_properties(machinist PROPERTIES
+    set_target_properties(gunblade PROPERTIES
         MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
     )
 else()
     # Enable warnings
-    target_compile_options(machinist PRIVATE -Wall -Wextra -pedantic)
+    target_compile_options(gunblade PRIVATE -Wall -Wextra -pedantic)
 endif()

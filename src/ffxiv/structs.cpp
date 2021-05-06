@@ -24,7 +24,7 @@ static constexpr auto underlying_cast(Enum value) noexcept
     return static_cast<std::underlying_type_t<Enum>>(value);
 }
 
-namespace machinist::ffxiv
+namespace gunblade::ffxiv
 {
     std::vector<char> Bundle::decompressed_payload() const
     {
@@ -99,4 +99,4 @@ namespace machinist::ffxiv
     static_assert(sizeof(ClientKeepAlive) == 8);
     static_assert(sizeof(ServerKeepAlive) == 8);
 
-}  // namespace machinist::ffxiv
+}  // namespace gunblade::ffxiv

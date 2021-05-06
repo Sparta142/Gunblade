@@ -7,9 +7,9 @@
 #include <optional>
 #include <vector>
 
-namespace machinist
+namespace gunblade
 {
-    using namespace machinist::ffxiv;
+    using namespace gunblade::ffxiv;
 
     class FinalFantasyDecoder
     {
@@ -37,4 +37,4 @@ namespace machinist
     private:
         std::deque<storage_type> data_;
     };
-}  // namespace machinist
+}  // namespace gunblade

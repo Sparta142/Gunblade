@@ -5,7 +5,7 @@
 #include <Windows.h>
 #include <Psapi.h>
 
-namespace machinist
+namespace gunblade
 {
     std::string get_process_name(unsigned long pid)
     {
@@ -23,4 +23,4 @@ namespace machinist
 
         return std::string(buf.data(), length);
     }
-}  // namespace machinist
+}  // namespace gunblade

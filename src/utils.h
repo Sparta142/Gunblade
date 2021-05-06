@@ -6,7 +6,7 @@
 #include <string>
 #include <utility>
 
-namespace machinist
+namespace gunblade
 {
     inline void hash_combine([[maybe_unused]] std::size_t& seed) {}
 
@@ -38,4 +38,4 @@ namespace machinist
      * an empty string if the name is unable to be retrieved.
      */
     std::string get_process_name(unsigned long pid);
-}  // namespace machinist
+}  // namespace gunblade

@@ -6,7 +6,7 @@
 #include <tins/ip_address.h>
 #include <tins/ipv6_address.h>
 
-namespace machinist
+namespace gunblade
 {
     using IPAddress = std::variant<Tins::IPv4Address, Tins::IPv6Address>;
 
@@ -65,4 +65,4 @@ namespace machinist
     };
 
     std::vector<ConnectionInfo> get_tcp_table();
-}  // namespace machinist
+}  // namespace gunblade

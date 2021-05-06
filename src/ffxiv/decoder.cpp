@@ -22,7 +22,7 @@ static T read_struct(InputIterator begin)
     return std::bit_cast<T>(buffer);
 }
 
-namespace machinist
+namespace gunblade
 {
     std::optional<Bundle> FinalFantasyDecoder::next_bundle()
     {
@@ -73,4 +73,4 @@ namespace machinist
         // Return the complete bundle
         return bundle;
     }
-}  // namespace machinist
+}  // namespace gunblade

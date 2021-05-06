@@ -61,7 +61,7 @@ struct fmt::formatter<Tins::TCPIP::Stream> final
     }
 };
 
-static bool stream_matches(const machinist::ConnectionInfo& info, const Stream& stream)
+static bool stream_matches(const gunblade::ConnectionInfo& info, const Stream& stream)
 {
     // Are they even the same address family?
     if (stream.is_v6() != info.is_v6())
@@ -100,13 +100,13 @@ static bool stream_matches(const machinist::ConnectionInfo& info, const Stream& 
 
 static inline bool is_ffxiv_pid(pid_t pid)
 {
-    return machinist::get_process_name(pid) == "ffxiv_dx11.exe";
+    return gunblade::get_process_name(pid) == "ffxiv_dx11.exe";
 }
 
 static std::optional<pid_t> get_ffxiv_pid(const Stream& stream)
 {
     // Look through all TCP connections
-    for (const auto& info : machinist::get_tcp_table())
+    for (const auto& info : gunblade::get_tcp_table())
     {
         if (stream_matches(info, stream) && is_ffxiv_pid(info.pid))
         {
@@ -151,7 +151,7 @@ public:
         decoder_.feed_data(payload.cbegin(), payload.cend());
 
         // Handle all bundles using the decoder
-        std::optional<machinist::Bundle> bundle;
+        std::optional<gunblade::Bundle> bundle;
         while ((bundle = decoder_.next_bundle()).has_value())
         {
             const auto& source_flow =
@@ -180,7 +180,7 @@ public:
 
         // Don't let the decoder buffer data forever, stop it once
         // it reaches a critical length of 2 max-sized bundles.
-        if (decoder_.size() > (2 * machinist::ffxiv::Bundle::max_length))
+        if (decoder_.size() > (2 * gunblade::ffxiv::Bundle::max_length))
         {
             spdlog::warn("Flow {} buffered too much data without a bundle, ignoring it", name_);
 
@@ -190,14 +190,14 @@ public:
     }
 
 private:
-    machinist::FinalFantasyDecoder decoder_;
+    gunblade::FinalFantasyDecoder decoder_;
     Flow& flow_;
 
     const std::string name_;
     const pid_t pid_;
 };
 
-namespace machinist::ffxiv
+namespace gunblade::ffxiv
 {
     static void on_new_stream(Stream& stream)
     {
@@ -229,4 +229,4 @@ namespace machinist::ffxiv
         follower.new_stream_callback(on_new_stream);
         follower.stream_termination_callback(on_stream_termination);
     }
-}  // namespace machinist::ffxiv
+}  // namespace gunblade::ffxiv

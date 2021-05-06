@@ -61,7 +61,7 @@ static DWORD GetExtendedTcpTable(PVOID pTcpTable, PDWORD pdwSize, ULONG ulAf)
         pTcpTable, pdwSize, false, ulAf, TCP_TABLE_CLASS::TCP_TABLE_OWNER_PID_CONNECTIONS, 0);
 }
 
-namespace machinist
+namespace gunblade
 {
     static ConnectionInfo info_from_tcprow(const MIB_TCPROW_OWNER_PID& row)
     {
@@ -124,4 +124,4 @@ namespace machinist
 
         return ipv4_table;
     }
-}  // namespace machinist
+}  // namespace gunblade

@@ -8,7 +8,7 @@
 
 #include <nlohmann/json.hpp>
 
-namespace machinist::ffxiv
+namespace gunblade::ffxiv
 {
     enum class Compression : std::uint8_t
     {
@@ -197,4 +197,4 @@ namespace machinist::ffxiv
     void to_json(nlohmann::json& j, const Bundle& bundle);
 
     void to_json(nlohmann::json& j, const Segment& segment);
-}  // namespace machinist::ffxiv
+}  // namespace gunblade::ffxiv
