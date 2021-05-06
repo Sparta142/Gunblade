@@ -8,7 +8,7 @@
 
 namespace gunblade
 {
-    inline void hash_combine([[maybe_unused]] std::size_t& seed) {}
+    inline void hash_combine(std::size_t&) {}
 
     // Credit: https://stackoverflow.com/a/38140932/2958344
     template <typename T, typename... Args>
