@@ -15,7 +15,7 @@ endif()
 
 if(VCPKG_TARGET_IS_WINDOWS AND ENABLE_PCAP)
     # Using the Npcap SDK installed by vcpkg
-    set(PCAP_ROOT_DIR "${CURRENT_INSTALLED_DIR}") # TODO: Wrong directory, should use package dir?
+    set(PCAP_ROOT_DIR "${CURRENT_INSTALLED_DIR}") # TODO: Is this the right directory?
 endif()
 
 vcpkg_configure_cmake(
