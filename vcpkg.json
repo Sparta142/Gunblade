@@ -1,0 +1,10 @@
+{
+    "name": "machinist",
+    "version-string": "0.1.0",
+    "dependencies": [
+        "gzip-hpp",
+        "libtins",
+        "nlohmann-json",
+        "spdlog"
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "name": "libtins",
+    "version": "4.3",
+    "port-version": 1,
+    "description": "High-level, multiplatform C++ network packet sniffing and crafting library",
+    "homepage": "https://github.com/mfontanini/libtins",
+    "dependencies": [
+        {
+            "name": "npcap-sdk",
+            "platform": "windows"
+        },
+        "boost-icl",
+        "boost-any"
+    ]
+}

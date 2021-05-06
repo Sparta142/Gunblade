@@ -1,0 +1,8 @@
+{
+    "name": "npcap-sdk",
+    "version-string": "1.07",
+    "port-version": 1,
+    "description": "Packet sniffing (and sending) library for Windows",
+    "homepage": "https://nmap.org/npcap/",
+    "supports": "windows"
+}
