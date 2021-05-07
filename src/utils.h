@@ -1,24 +1,11 @@
 #pragma once
 
-#include <codecvt>
-#include <cstddef>
-#include <locale>
-#include <string>
-#include <utility>
+#include <codecvt>  // codecvt_utf8
+#include <locale>   // wstring_convert
+#include <string>   // string
 
 namespace gunblade
 {
-    inline void hash_combine(std::size_t&) {}
-
-    // Credit: https://stackoverflow.com/a/38140932/2958344
-    template <typename T, typename... Args>
-    inline void hash_combine(std::size_t& seed, const T& first, const Args&... args) noexcept
-    {
-        std::hash<T> hasher;
-        seed ^= hasher(first) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-        hash_combine(seed, args...);
-    }
-
     template <typename String>
     inline std::string to_utf8(const String& wstr)
     {
