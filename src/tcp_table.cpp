@@ -9,7 +9,7 @@
 #include <WinSock2.h>
 #include <iphlpapi.h>
 
-template <size_t AllocThreshold>
+template <std::size_t AllocThreshold>
 class ScratchBuffer  // TODO: Remove this and use a std::vector<std::byte>
 {
 public:
@@ -22,12 +22,12 @@ public:
         return heap_buf_ ? heap_buf_->data() : stack_buf_.data();
     }
 
-    inline size_t size() const noexcept
+    inline std::size_t size() const noexcept
     {
         return heap_buf_ ? heap_buf_->size() : stack_buf_.size();
     }
 
-    void resize(size_t size)
+    void resize(std::size_t size)
     {
         if (!heap_buf_)
         {
@@ -47,7 +47,7 @@ public:
     }
 
 private:
-    size_t size_ = AllocThreshold;
+    std::size_t size_ = AllocThreshold;
 
     std::array<backing_type, AllocThreshold> stack_buf_;
     std::optional<std::vector<backing_type>> heap_buf_ = std::nullopt;
