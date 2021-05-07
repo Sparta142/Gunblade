@@ -25,7 +25,7 @@ struct fmt::formatter<Tins::TCPIP::Stream> final
     {
         if (ctx.begin() != ctx.end())
         {
-            // No format string allowed
+            // All non-empty format specifiers are invalid
             throw format_error("invalid format");
         }
 
