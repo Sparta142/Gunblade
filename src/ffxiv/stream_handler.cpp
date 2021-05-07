@@ -5,11 +5,8 @@
 
 #include <iostream>
 
-#include <fmt/format.h>
-#include <spdlog/spdlog.h>
-
-#include <tins/ip_address.h>
-#include <tins/ipv6_address.h>
+#include <fmt/format.h>     // formatter
+#include <spdlog/spdlog.h>  // info, warn
 
 #include <nlohmann/json.hpp>
 

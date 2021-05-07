@@ -1,10 +1,10 @@
 #pragma once
 
-#include <cstddef>
-#include <cstdint>
-#include <limits>
-#include <variant>
-#include <vector>
+#include <cstddef>  // size_t
+#include <cstdint>  // uint8_t, uint16_t, uint32_t, uint64_t
+#include <limits>   // numeric_limits
+#include <variant>  // variant
+#include <vector>   // vector
 
 #include <nlohmann/json.hpp>
 

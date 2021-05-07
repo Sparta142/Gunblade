@@ -1,6 +1,6 @@
 #include "structs.h"
 
-#include <array>
+#include <array>        // array
 #include <stdexcept>    // runtime_error
 #include <type_traits>  // is_standard_layout_v
 #include <utility>      // copy

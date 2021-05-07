@@ -3,9 +3,7 @@
 #include "structs.h"
 
 #include <deque>
-#include <limits>
 #include <optional>
-#include <vector>
 
 namespace gunblade
 {

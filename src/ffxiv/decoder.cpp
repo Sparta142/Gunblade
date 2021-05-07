@@ -1,9 +1,10 @@
 #include "decoder.h"
 
-#include <algorithm>
-#include <array>
-#include <bit>
-#include <utility>
+#include <algorithm>  // copy, search
+#include <array>      // array
+#include <bit>        // bit_cast
+#include <utility>    // move
+#include <iterator>   // distance
 
 // clang-format off
 static constexpr std::array<uint8_t, 16> magic_number {

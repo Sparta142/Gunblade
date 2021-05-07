@@ -2,12 +2,11 @@
 #include "tcp_table.h"
 #include "utils.h"
 
-#include <pcap/pcap.h>
-
 #include <spdlog/spdlog.h>
 #include <spdlog/cfg/env.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
+#include <pcap/pcap.h>
 #include <tins/tins.h>
 #include <tins/tcp_ip/stream_follower.h>
 
