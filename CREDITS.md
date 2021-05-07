@@ -2,7 +2,7 @@
 Gunblade wouldn't be possible without the help of these projects:
 
 ## cpp-base64
-**Repository:** https://github.com/ReneNyffenegger/cpp-base64
+**Repository:** https://github.com/ReneNyffenegger/cpp-base64  
 **License:** https://github.com/ReneNyffenegger/cpp-base64/blob/master/LICENSE
 
 ## {fmt}
