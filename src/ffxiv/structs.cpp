@@ -5,6 +5,8 @@
 #include <type_traits>  // is_standard_layout_v
 #include <utility>      // copy
 
+#include <cpp-base64/base64.h>  // base64_encode
+
 #pragma warning(push)
 #pragma warning(disable : 4068)
 #include <gzip/decompress.hpp>
@@ -66,6 +68,33 @@ namespace gunblade::ffxiv
         return segs;
     }
 
+    static void to_json(nlohmann::json& j, const IPC& ipc)
+    {
+        const auto pData = reinterpret_cast<const unsigned char*>(ipc.data.data());
+        const auto length = static_cast<unsigned int>(ipc.data.size());
+
+        // clang-format off
+        j = nlohmann::json{
+            {"magic", ipc.header.magic},
+            {"type", ipc.header.type},
+            {"serverId", ipc.header.server_id},
+            {"epoch", ipc.header.epoch},
+            {"data", base64_encode(pData, length)}
+        };
+        // clang-format on
+    }
+
+    template <bool IsClient>
+    static void to_json(nlohmann::json& j, const KeepAlive<IsClient>& keep_alive)
+    {
+        // clang-format off
+        j = nlohmann::json{
+            {"id", keep_alive.id},
+            {"epoch", keep_alive.epoch}
+        };
+        // clang-format on
+    }
+
     void to_json(nlohmann::json& j, const Bundle& bundle)
     {
         // clang-format off
@@ -82,10 +111,30 @@ namespace gunblade::ffxiv
         j = nlohmann::json{
             {"source", segment.header.source},
             {"target", segment.header.target},
-            {"type", underlying_cast(segment.header.type)},
-            {"payload", {}}  // TODO
+            {"type", underlying_cast(segment.header.type)}
         };
         // clang-format on
+
+        switch (segment.header.type)
+        {
+            case SegmentType::IPC:
+            {
+                const auto it = segment.data.cbegin();
+                const auto header = read_struct<IPC::Header>(it);
+                std::vector<char> data(it + sizeof(header), segment.data.cend());
+
+                j["payload"] = IPC{header, data};
+                break;
+            }
+
+            case SegmentType::CLIENT_KEEPALIVE:
+                j["payload"] = read_struct<ClientKeepAlive>(segment.data.cbegin());
+                break;
+
+            case SegmentType::SERVER_KEEPALIVE:
+                j["payload"] = read_struct<ServerKeepAlive>(segment.data.cbegin());
+                break;
+        }
     }
 
     static_assert(std::is_standard_layout_v<Bundle::Header>);
