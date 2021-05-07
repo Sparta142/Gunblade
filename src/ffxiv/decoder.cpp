@@ -8,10 +8,17 @@
 
 // clang-format off
 static constexpr std::array<uint8_t, 16> magic_number {
-    0x52, 0x52, 0xa0, 0x41,
-    0xff, 0x5d, 0x46, 0xe2,
-    0x7f, 0x2a, 0x64, 0x4d,
-    0x7b, 0x99, 0xc4, 0x75
+    0x52, 0x52, 0xa0, 0x41,  // 0x41a05252
+    0xff, 0x5d, 0x46, 0xe2,  // 0xe2465dff
+    0x7f, 0x2a, 0x64, 0x4d,  // 0x4d642a7f
+    0x7b, 0x99, 0xc4, 0x75   // 0x75c4997b
+};
+
+static constexpr std::array<uint8_t, 16> magic_number_keepalive {
+    0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00
 };
 // clang-format on
 
@@ -27,15 +34,27 @@ namespace gunblade
 {
     std::optional<Bundle> FinalFantasyDecoder::next_bundle()
     {
-        // Search for the magic number in the buffer
-        const auto iter =
+        // Search for the IPC bundle magic number in the buffer
+        auto iter =
             std::search(data_.cbegin(), data_.cend(), magic_number.cbegin(), magic_number.cend());
 
-        // Did we find the needle (magic number) in the haystack (buffer)?
+        // Did we find the magic number in the buffer?
         if (iter == data_.cend())
         {
-            // No - just return nothing
-            return std::nullopt;
+            // No - try searching for the keepalive bundle magic number instead
+            iter = std::search(
+                data_.cbegin(),
+                data_.cend(),
+                magic_number_keepalive.cbegin(),
+                magic_number_keepalive.cend());
+
+            // Did we find that instead?
+            if (iter == data_.cend())
+            {
+                // No - just return nothing. Don't trim the buffer because
+                // it might end with the start of a valid bundle.
+                return std::nullopt;
+            }
         }
 
         const auto remaining_length = std::distance(iter, data_.cend());
@@ -43,7 +62,8 @@ namespace gunblade
         // Is there enough data left to read an entire bundle header?
         if (remaining_length < sizeof(Bundle::Header))
         {
-            // No - erase everything before the magic number, then return nothing
+            // No - trim everything in the buffer before the magic number,
+            // then return nothing.
             data_.erase(data_.cbegin(), iter);
             return std::nullopt;
         }
@@ -54,7 +74,8 @@ namespace gunblade
         // Is there enough data left to read the entire bundle? (not just its header)
         if (remaining_length < bundle_header.length)
         {
-            // No - erase everything before the magic number, then return nothing
+            // No - trim everything in the buffer before the magic number,
+            // then return nothing.
             data_.erase(data_.cbegin(), iter);
             return std::nullopt;
         }
@@ -68,7 +89,7 @@ namespace gunblade
         bundle.header = std::move(bundle_header);
         bundle.payload.assign(payload_begin, payload_end);
 
-        // Erase everything in the buffer up to the end of the bundle we just read
+        // Trim everything in the buffer before the magic number
         data_.erase(data_.cbegin(), payload_end);
 
         // Return the complete bundle
