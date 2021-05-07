@@ -15,13 +15,13 @@ Gunblade wouldn't be possible without the help of these projects:
 **License:** https://github.com/mapbox/gzip-hpp/blob/master/LICENSE.md
 
 ## JSON for Modern C++
-**Repository:** https://github.com/nlohmann/json  
 **Homepage:** https://json.nlohmann.me  
+**Repository:** https://github.com/nlohmann/json  
 **License:** https://github.com/nlohmann/json/blob/develop/LICENSE.MIT
 
 ## libtins
-**Repository:** https://github.com/mfontanini/libtins  
 **Homepage:** http://libtins.github.io  
+**Repository:** https://github.com/mfontanini/libtins  
 **License:** https://github.com/mfontanini/libtins/blob/master/LICENSE
 
 ## spdlog
