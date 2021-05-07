@@ -14,6 +14,16 @@ find_path(PCAP_INCLUDE_DIR
     pcap/pcap.h
     REQUIRED
 )
+find_path(CPP_BASE64_INCLUDE_DIR
+    base64.h
+    PATH_SUFFIXES cpp-base64/
+    REQUIRED
+)
+find_file(CPP_BASE64_IMPLEMENTATION
+    base64.cpp
+    PATH_SUFFIXES cpp-base64/
+    REQUIRED
+)
 
 add_executable(gunblade
     ffxiv/decoder.cpp
@@ -28,6 +38,8 @@ add_executable(gunblade
     ffxiv/structs.h
     tcp_table.h
     utils.h
+
+    ${CPP_BASE64_IMPLEMENTATION}
 )
 
 # C++20, no compiler extensions, and position-independent code
@@ -46,6 +58,7 @@ target_link_libraries(gunblade PRIVATE
 )
 
 target_include_directories(gunblade PRIVATE
+    ${CPP_BASE64_INCLUDE_DIR}
     ${GZIP_HPP_INCLUDE_DIR}
     ${PCAP_INCLUDE_DIR}
 )

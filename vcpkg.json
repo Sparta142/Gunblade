@@ -2,6 +2,7 @@
     "name": "gunblade",
     "version-string": "0.1.0",
     "dependencies": [
+        "cpp-base64",
         "gzip-hpp",
         "libtins",
         "nlohmann-json",
