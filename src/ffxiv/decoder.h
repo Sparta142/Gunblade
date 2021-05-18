@@ -15,17 +15,17 @@ namespace gunblade
 
     public:
         template <typename InputIterator>
-        void feed_data(InputIterator first, InputIterator last)
+        inline void feed_data(InputIterator first, InputIterator last)
         {
             data_.insert(data_.end(), first, last);
         }
 
-        size_t size() const noexcept
+        inline size_t size() const noexcept
         {
             return data_.size();
         }
 
-        void clear() noexcept
+        inline void clear() noexcept
         {
             data_.clear();
         }
